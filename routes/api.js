@@ -8,12 +8,39 @@
 
 'use strict';
 
-var expect = require('chai').expect;
+const expect = require('chai').expect;
+const MongoClient = require('mongodb');
+
 
 module.exports = function (app) {
   
-  app.route('/api/threads/:board');
+  app.route('/api/threads/:board')
+    .post((req, res) => {
     
-  app.route('/api/replies/:board');
+    })
+    .get((req, res) => {
+    
+    })
+    .delete((req, res) => {
+    
+    })
+    .put((req, res) => {
+    
+    });
+  
+    
+  app.route('/api/replies/:board')
+    .post((req, res) => {
+      
+    })
+    .get((req, res) => {
+      
+    })
+    .delete((req, res) => {
+    
+    })
+    .put((req, res) => {
+    
+    });
 
 };
