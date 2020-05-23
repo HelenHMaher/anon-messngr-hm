@@ -2,51 +2,47 @@
 
 const MongoClient = require('mongodb').MongoClient;
 const CONNECTION_STRING = process.env.DB;
-const ObjectId = require('mongodb').Object.Id;
-const expect = require('chair').expect;
+const ObjectId = require('mongodb').ObjectId;
 
 function ThreadHandler() {
   
-  this.createThread = (text, delete_password, callback) => {
+  this.createThread = (text, delete_password, callback, board) => {
     //returns document if a document is found or new doc if one is inserted
     MongoClient.connect(CONNECTION_STRING, (err, client) => {
-      const db = client.collection('anon-message-board');
+      const db = client.db('anon-message-board');
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
         console.log('successful database connection');
-        db.findAndModify(
-          {
-          query: {text: text},
-          sort: {},
-          update: {
-            $setOnInsert: {
+        db.collection(board).findAndModify(
+          {text: text},
+          {},
+          {$setOnInsert: {
               text: text,
               created_on: new Date,
               bumped_on: new Date,
               reported: false,
               delete_password: delete_password,
               replies: [] } },
-          new: true,
-          upsert: true
-          },
+          {new: true, upsert: true},
           (err, data) => {
             if(err) console.log(err);
-            callback(data);
+            console.log(data.value);
+            callback(data.value);
             }
         );
       }
     })
   };
   
-  this.displayThreads = (callback) => {
+  this.displayThreads = (callback, board) => {
     MongoClient.connect(CONNECTION_STRING, (err, client) => {
-      const db = client.collection('anon-message-board');
+      const db = client.db('anon-message-board');
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
         console.log('successful database connection');
-        db.find()
+        db.collection(board).find()
           .sort({ bumped_on: -1 })
           .toArray((err, data) => {
             if(err) console.log(err);
@@ -58,15 +54,15 @@ function ThreadHandler() {
     })
   }
   
-  this.deleteThread = (thread_id, delete_password, callback) => {
+  this.deleteThread = (thread_id, delete_password, callback, board) => {
     //returns original document if one is deleted
     MongoClient.connect(CONNECTION_STRING, (err, client) => {
-      const db = client.collection('anon-message-board');
+      const db = client.db('anon-message-board');
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
         console.log('successful database connection');
-        db.findOneAndDelete({ _id: new ObjectId(thread_id), delete_password: delete_password }, (err, data) => {
+        db.collection(board).findOneAndDelete({ _id: new ObjectId(thread_id), delete_password: delete_password }, (err, data) => {
           if(err) console.log(err);
           callback(data);
         })
@@ -74,15 +70,15 @@ function ThreadHandler() {
     }) 
   };
   
-  this.reportThread = (thread_id, callback) => {
+  this.reportThread = (thread_id, callback, board) => {
        //returns updated document or {} if none is found
     MongoClient.connect(CONNECTION_STRING, (err, client) => {
-      const db = client.collection('anon-message-board');
+      const db = client.db('anon-message-board');
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
         console.log('successful database connection');
-        db.findAndModify(
+        db.collection(board).findAndModify(
           {
           query: {_id: new ObjectId(thread_id)},
           sort: {},
