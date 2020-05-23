@@ -2,8 +2,7 @@
 
 const MongoClient = require('mongodb').MongoClient;
 const CONNECTION_STRING = process.env.DB;
-const ObjectId = require('mongodb').Object.Id;
-const expect = require('chair').expect;
+const ObjectId = require('mongodb').ObjectId;
 
 function ThreadHandler() {
   
