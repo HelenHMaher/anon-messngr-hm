@@ -14,21 +14,17 @@ function ThreadHandler() {
         console.log(`Database err: ${err}`);
       } else {
         console.log('successful database connection');
-        db.collection(board).findAndModify(
-          {text: text},
-          {},
-          {$setOnInsert: {
+        db.collection(board).insertOne({
               text: text,
               created_on: new Date,
               bumped_on: new Date,
               reported: false,
               delete_password: delete_password,
-              replies: [] } },
-          {new: true, upsert: true},
+              replies: [] },
           (err, data) => {
             if(err) console.log(err);
-            console.log(data.value);
-            callback(data.value);
+            //console.log(data.ops);
+            callback(data.ops);
             }
         );
       }
@@ -42,7 +38,8 @@ function ThreadHandler() {
         console.log(`Database err: ${err}`);
       } else {
         console.log('successful database connection');
-        db.collection(board).find()
+        db.collection(board)
+          .find()
           .sort({ bumped_on: -1 })
           .toArray((err, data) => {
             if(err) console.log(err);
@@ -79,17 +76,13 @@ function ThreadHandler() {
       } else {
         console.log('successful database connection');
         db.collection(board).findAndModify(
-          {
-          query: {_id: new ObjectId(thread_id)},
-          sort: {},
-          update: {
-            $set: { reported: true } },
-          new: true,
-          upsert: false
-          },
+          { _id: new ObjectId(thread_id) },
+          {},
+          { $set: { reported: true } },
+          { new: true, upsert: false },
           (err, data) => {
             if(err) console.log(err);
-            callback(data);
+            callback(data.value);
           }
         );
       }
