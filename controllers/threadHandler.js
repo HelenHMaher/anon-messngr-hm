@@ -13,7 +13,7 @@ function ThreadHandler() {
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
-        console.log('successful database connection');
+        //console.log('successful database connection');
         db.collection(board).insertOne({
               text: text,
               created_on: new Date,
@@ -37,7 +37,7 @@ function ThreadHandler() {
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
-        console.log('successful database connection');
+        //console.log('successful database connection');
         db.collection(board)
           .find()
           .sort({ bumped_on: -1 })
@@ -58,7 +58,7 @@ function ThreadHandler() {
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
-        console.log('successful database connection');
+        //console.log('successful database connection');
         db.collection(board).findOneAndDelete({ _id: new ObjectId(thread_id), delete_password: delete_password }, (err, data) => {
           if(err) console.log(err);
           const result = (data.value === null) ? false : true;
@@ -75,7 +75,7 @@ function ThreadHandler() {
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
-        console.log('successful database connection');
+        //console.log('successful database connection');
         db.collection(board).findOneAndUpdate(
           { _id: new ObjectId(thread_id) },
           { $set: { reported: true } },

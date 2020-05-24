@@ -1,0 +1,106 @@
+:root {
+  --turquoise: rgb(8, 182, 206);
+  --sky: rgb(116, 213, 221);
+  --tufs: rgb(57, 138, 215);
+  --lapis: rgb(47, 102, 169);
+}
+
+#testui {
+  background: var(--turquoise);
+  font-family: geneva, sans-serif;
+  margin: 5px;
+  max-width: 1000px;
+  min-width: 200px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  text-align: center;
+  margin: auto;
+}
+
+.sub-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 900px;
+  min-width: 250px;
+  background: lightgrey;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px black;
+}
+
+.form-section {
+  background: var(--sky);
+  border-radius: 10px;
+  box-shadow: 0 0 5px black;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  width: 210px; 
+}
+
+input[type='text'], textarea {
+  width: 200px;
+  border: 2px solid grey;
+  border-radius: 5px;
+  margin: 1px;
+  font-size: 12;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type='text']:focus, textarea:focus {
+  border: 3px solid black;
+  outline: none;
+}
+
+input[type='text'] {
+  height: 15px;
+}
+
+input[type='submit'] {
+  height: 2rem;
+  border: 2px solid grey;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-top: 10px;
+  outline: none;
+}
+
+input[type='submit']:active {
+  outline: none;
+  transform: scale(.9);
+}
+
+input[type='submit']:hover {
+  background: grey;
+  color: white;
+  cursor: pointer;
+  border: 2px solid lightgrey;
+}
+
+footer {
+  padding-top: 10px;
+  font-family: geneva, sans-serif;
+  text-align: right;
+  width: 100%;
+  font-size: 12px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+  color: var(--sky);
+  text-shadow: 0 0 2px black;
+}
