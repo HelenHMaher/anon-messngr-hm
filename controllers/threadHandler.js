@@ -61,7 +61,7 @@ function ThreadHandler() {
         console.log('successful database connection');
         db.collection(board).findOneAndDelete({ _id: new ObjectId(thread_id), delete_password: delete_password }, (err, data) => {
           if(err) console.log(err);
-          const result = data === null ? false : true;
+          const result = (data.value === null) ? false : true;
           callback(result);
         })
       }
