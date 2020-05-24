@@ -42,10 +42,7 @@ function ReplyHandler() {
           .find({ _id: new ObjectId(thread_id) })
           .toArray((err, data) => {
             if(err) console.log(err);
-            const result = data[0];
-            delete result.delete_password;
-            delete result.reported;
-            callback(result);
+            callback(data[0]);
             }
           );
       }

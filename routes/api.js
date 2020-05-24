@@ -56,7 +56,7 @@ module.exports = function (app) {
       const delete_password = req.body.delete_password;
       const callback = (data) => {
         //console.log('_id: ' + thread_id + ' password: ' + delete_password);
-        data.value ? res.send('success') : res.send('incorrect password');
+        data ? res.send('success') : res.send('incorrect password');
         }
       updateThread.deleteThread(thread_id, delete_password, callback, board);
     })
@@ -118,7 +118,7 @@ module.exports = function (app) {
       const reply_id = req.body.reply_id;
       const callback = (data) => {
         //console.log(data._id);
-        data ? res.send('reported') : res.send('there was an error');
+        data ? res.send('success') : res.send('there was an error');
       }
       updateReply.reportReply(board, thread_id, callback, reply_id);
     });
