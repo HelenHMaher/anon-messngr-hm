@@ -12,7 +12,7 @@ function ReplyHandler() {
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
-        console.log('successful database conneciton');
+        //console.log('successful database conneciton');
         db.collection(board).findOneAndUpdate(
           { _id: new ObjectId(thread_id) },
           { $push: { replies: 
@@ -37,7 +37,7 @@ function ReplyHandler() {
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
-        console.log('successful database connection');
+        //console.log('successful database connection');
         db.collection(board)
           .find({ _id: new ObjectId(thread_id) })
           .toArray((err, data) => {
@@ -55,7 +55,7 @@ function ReplyHandler() {
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
-        console.log('successful database connection');
+        //console.log('successful database connection');
         db.collection(board).findOneAndUpdate(
           { _id: new ObjectId(thread_id),
           replies: { $elemMatch: { _id: new ObjectId(reply_id), delete_password: delete_password } } },
@@ -75,7 +75,7 @@ function ReplyHandler() {
       if(err) {
         console.log(`Database err: ${err}`);
       } else {
-        console.log('successful database connection');
+        //console.log('successful database connection');
         db.collection(board).findOneAndUpdate(
           { _id: new ObjectId(thread_id),
           replies: { $elemMatch: { _id: new ObjectId(reply_id) } } },
